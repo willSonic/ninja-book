@@ -1,5 +1,4 @@
 ///<reference path="node_modules/angular2/typings/browser.d.ts"/>
-"use strict";
 var http_1 = require('angular2/http');
 var core_1 = require('angular2/core');
 var fakerace_service_1 = require('./services/mocks/fakerace_service');
