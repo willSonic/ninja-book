@@ -10,7 +10,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 var core_1 = require('angular2/core');
+var core_2 = require('angular2/core');
+require('rxjs/add/operator/share');
 var race_service_1 = require('./services/race_service');
+var fakerace_service_1 = require('./services/mocks/fakerace_service');
 var races_cmp_1 = require('./races_cmp');
 var ponies_cmp_1 = require('./ponies_cmp');
 var PonyRacerApp = (function () {
@@ -21,13 +24,14 @@ var PonyRacerApp = (function () {
         this.newRaceAvailable = [];
         this.flashyMessage = '';
         this.isHidden = false;
+        this.devTestData = [];
         this.raceSerLis = [];
         this.user = { name: 'Cédric' };
     }
-    PonyRacerApp.prototype.racerServiceList = function () {
-        this.raceSerLis = this._raceService.list();
+    PonyRacerApp.prototype.racerServiceList = function (event) {
+        this.devTestData = this._raceService.list();
+        this.raceSerLis = this._raceService.list().value;
         console.log("this._raceService.list()", this.raceSerLis);
-        return this.raceSerLis;
     };
     PonyRacerApp.prototype.onNewRace = function (event) {
         // add a flashy message for the user.
@@ -38,7 +42,8 @@ var PonyRacerApp = (function () {
     PonyRacerApp = __decorate([
         core_1.Component({
             selector: 'ponyracer-app',
-            template: "\n                <h5>PonyRacer</h5>\n                <h5>{{numberOfUsers}} users</h5>\n                <h5>Welcome {{user.name}}</h5>\n                <h5>artist {{user.type}}</h5>\n                <h5> flashy message = {{flashyMessage}}</h5>\n                <races-cmp [hidden]=\"isHidden\" (newRaceAvailable)=\"onNewRace($event)\">{{flashyMessage}}</races-cmp>\n                <ponies-cmp></ponies-cmp>\n                <button (click)=\"racerServiceList($event)\">Race Service Listt</button>\n                <p>Racer LIST = {{raceSerLis}}</p>\n               ",
+            providers: [core_2.provide(race_service_1.RaceService, { useClass: fakerace_service_1.FakeRaceService })],
+            template: "\n                <h5>PonyRacer</h5>\n                <h5>{{numberOfUsers}} users</h5>\n                <h5>Welcome {{user.name}}</h5>\n                <h5>artist {{user.type}}</h5>\n                <h5> flashy message = {{flashyMessage}}</h5>\n                <races-cmp [hidden]=\"isHidden\" (newRaceAvailable)=\"onNewRace($event)\">{{flashyMessage}}</races-cmp>\n                <ponies-cmp></ponies-cmp>\n                <button (click)=\"racerServiceList($event)\">Get Race LIST </button>\n                <p *ngIf=\"raceSerLis.length > 0\">{{devTestData | json}}</p>\n                 <ul *ngIf=\"raceSerLis.length > 0\">\n                     <li *ngFor=\"#race of raceSerLis; #i=index \">{{i}} - {{race.name}} </li>\n                </ul>\n               ",
             // declare all the components you use in your template
             directives: [races_cmp_1.RacesCmp, ponies_cmp_1.PoniesCmp]
         }), 

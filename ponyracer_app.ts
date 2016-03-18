@@ -1,10 +1,14 @@
 import {Component}   from 'angular2/core';
+import {provide} from 'angular2/core';
+import 'rxjs/add/operator/share';
 import {RaceService} from './services/race_service';
+import {FakeRaceService} from './services/mocks/fakerace_service';
 import {RacesCmp}    from './races_cmp';
 import {PoniesCmp}   from './ponies_cmp';
 
 @Component({
     selector: 'ponyracer-app',
+    providers: [provide(RaceService, {useClass: FakeRaceService})],
     template:  `
                 <h5>PonyRacer</h5>
                 <h5>{{numberOfUsers}} users</h5>
@@ -13,8 +17,11 @@ import {PoniesCmp}   from './ponies_cmp';
                 <h5> flashy message = {{flashyMessage}}</h5>
                 <races-cmp [hidden]="isHidden" (newRaceAvailable)="onNewRace($event)">{{flashyMessage}}</races-cmp>
                 <ponies-cmp></ponies-cmp>
-                <button (click)="racerServiceList($event)">Race Service Listt</button>
-                <p>Racer LIST = {{raceSerLis}}</p>
+                <button (click)="racerServiceList($event)">Get Race LIST </button>
+                <p *ngIf="raceSerLis.length > 0">{{devTestData | json}}</p>
+                 <ul *ngIf="raceSerLis.length > 0">
+                     <li *ngFor="#race of raceSerLis; #i=index ">{{i}} - {{race.name}} </li>
+                </ul>
                `,
     // declare all the components you use in your template
     directives: [RacesCmp, PoniesCmp]
@@ -33,20 +40,20 @@ export class PonyRacerApp {
 
     isHidden: boolean = false;
 
+    devTestData: any =[];
+
     raceSerLis: any =[];
 
     user: any = { name: 'Cédric' };
 
-    racerServiceList() {
-      this.raceSerLis = this._raceService.list();
-
+    racerServiceList(event) {
+      this.devTestData = this._raceService.list();
+      this.raceSerLis = this._raceService.list().value;
       console.log("this._raceService.list()", this.raceSerLis);
-      return this.raceSerLis;
     }
 
     onNewRace(event){
       // add a flashy message for the user.
-
       console.log("Message Recieved");
       this.flashyMessage = 'Snuffa lufficus';
     };

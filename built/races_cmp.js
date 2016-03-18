@@ -11,20 +11,29 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // in another file, races_cmp.ts
 var core_1 = require('angular2/core');
+var core_2 = require('angular2/core');
+var fakerace_service_1 = require('./services/mocks/fakerace_service');
+var race_service_1 = require('./services/race_service');
 var RacesCmp = (function () {
-    function RacesCmp() {
+    function RacesCmp(_raceService) {
+        this._raceService = _raceService;
         this.myLittlePony = 'Bart';
         this.races = [];
     }
+    RacesCmp.prototype.list = function () {
+        return this._raceService.list();
+    };
     RacesCmp.prototype.refreshRaces = function (event) {
-        this.races = [{ name: 'London' }, { name: 'Lyon' }];
+        console.log("Refresh Races Called");
+        this.races = this.list().value;
     };
     RacesCmp = __decorate([
         core_1.Component({
             selector: 'races-cmp',
+            providers: [core_2.provide(race_service_1.RaceService, { useClass: fakerace_service_1.FakeRaceService })],
             template: "<div>\n                  <h2>Races</h2>\n                   <button (click)=\"refreshRaces($event)\">Refresh the races list</button>\n                   <ul *ngIf=\"races.length > 0\">\n                     <li *ngFor=\"#race of races; #i=index \">{{i}} - {{race.name}} </li>\n                  </ul>\n               </div>"
         }), 
-        __metadata('design:paramtypes', [])
+        __metadata('design:paramtypes', [race_service_1.RaceService])
     ], RacesCmp);
     return RacesCmp;
 })();

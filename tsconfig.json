@@ -4,12 +4,16 @@
         "sourceMap": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
+        "removeComments": false,
+        "noImplicitAny": false,
         "module": "commonjs",
         "noImplicitAny": false,
         "outDir": "built",
         "rootDir": "."
     },
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "typings/main",
+        "typings/main.d.ts"
     ]
 }

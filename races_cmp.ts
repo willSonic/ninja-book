@@ -1,8 +1,12 @@
 // in another file, races_cmp.ts
   import {Component} from 'angular2/core';
+  import {provide} from 'angular2/core';
+  import {FakeRaceService} from './services/mocks/fakerace_service';
+  import {RaceService} from './services/race_service';
 
   @Component({
     selector: 'races-cmp',
+    providers: [provide(RaceService, {useClass: FakeRaceService})],
     template: `<div>
                   <h2>Races</h2>
                    <button (click)="refreshRaces($event)">Refresh the races list</button>
@@ -15,8 +19,13 @@
   export class RacesCmp {
 
     myLittlePony: string = 'Bart';
-    races: Array<any> = [];
-    refreshRaces(event) {
-      this.races = [{name: 'London'}, {name: 'Lyon'}];
+    races: any = [];
+    constructor(private _raceService: RaceService) {  }
+     list() {
+      return this._raceService.list();
+    }
+    refreshRaces(event){
+       console.log("Refresh Races Called");
+       this.races =  this.list().value;
     }
   }

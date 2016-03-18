@@ -3,6 +3,6 @@ import {Observable} from 'rxjs/Rx';
 
 export class FakeRaceService {
     list() {
-      return Observable.of([{ name: 'London' }]);
+      return Observable.of([{ name: 'London' }, { name: 'BigTimer' }, { name: 'Wu-Tang' }]);
     }
 }
