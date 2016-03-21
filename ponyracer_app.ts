@@ -3,20 +3,22 @@ import {provide} from 'angular2/core';
 import 'rxjs/add/operator/share';
 import {RaceService} from './services/race_service';
 import {FakeRaceService} from './services/mocks/fakerace_service';
-import {RacesCmp}    from './races_cmp';
-import {PoniesCmp}   from './ponies_cmp';
+import {RacesCmp}      from './races_cmp';
+import {PoniesCmp}     from './ponies_cmp';
+import {MyponiesCmp}   from './pony_cmp';
 
 @Component({
     selector: 'ponyracer-app',
     providers: [provide(RaceService, {useClass: FakeRaceService})],
     template:  `
-                <h5>PonyRacer</h5>
+                <h2>PonyRacer</h2>
+                <myponies-cmp></myponies-cmp>
+                <races-cmp [hidden]="isHidden" (newRaceAvailable)="onNewRace($event)">{{flashyMessage}}</races-cmp>
+                <ponies-cmp></ponies-cmp>
                 <h5>{{numberOfUsers}} users</h5>
                 <h5>Welcome {{user.name}}</h5>
                 <h5>artist {{user.type}}</h5>
                 <h5> flashy message = {{flashyMessage}}</h5>
-                <races-cmp [hidden]="isHidden" (newRaceAvailable)="onNewRace($event)">{{flashyMessage}}</races-cmp>
-                <ponies-cmp></ponies-cmp>
                 <button (click)="racerServiceList($event)">Get Race LIST </button>
                 <p *ngIf="raceSerLis.length > 0">{{devTestData | json}}</p>
                  <ul *ngIf="raceSerLis.length > 0">
@@ -24,7 +26,7 @@ import {PoniesCmp}   from './ponies_cmp';
                 </ul>
                `,
     // declare all the components you use in your template
-    directives: [RacesCmp, PoniesCmp]
+    directives: [RacesCmp, PoniesCmp, MyponiesCmp]
   })
 
 export class PonyRacerApp {
