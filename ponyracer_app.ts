@@ -5,7 +5,8 @@ import {RaceService} from './services/race_service';
 import {FakeRaceService} from './services/mocks/fakerace_service';
 import {RacesCmp}      from './races_cmp';
 import {PoniesCmp}     from './ponies_cmp';
-import {MyponiesCmp}   from './pony_cmp';
+import {PonyCmp}   from './pony_cmp';
+import {MyponiesCmp}   from './myponies_cmp';
 
 @Component({
     selector: 'ponyracer-app',

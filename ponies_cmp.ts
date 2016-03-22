@@ -1,8 +1,5 @@
-import {Component} from 'angular2/core';
-import {provide} from 'angular2/core';
-import {PLATFORM_PIPES} from 'angular2/core';
+import {Component, PLATFORM_PIPES, provide, Directive} from 'angular2/core';
 import {FromNowPipe} from './custompipes/fromnow_pipe';
-import {Directive} from 'angular2/core';
 import {Pony} from './pony_class';
 
 
@@ -37,18 +34,18 @@ import {Pony} from './pony_class';
   export class PoniesCmp {
 
     ponies: Array<Pony> = [
-      {id: 1, name: 'Sweet Potatoe'},
-      {id: 2, name: 'Candy Cane'},
-      {id: 3, name: 'Rainbow Dash'},
-      {id: 4, name: 'Pinkie Pie'},
-      {id: 5, name: 'DoubleDare'},
-      {id: 6, name: 'Full Monty'}
+      new Pony(1, 'Sweet Potatoe'),
+      new Pony(2, 'Candy Cane'),
+      new Pony(3, 'Rainbow Dash'),
+      new Pony(4, 'Pinkie Pie'),
+      new Pony(5, 'DoubleDare'),
+      new Pony(6, 'Full Monty')
     ];
     morePonies: Array<Pony> = [
-      {id: 7, name: 'Fluttershy'},
-      {id:8, name: 'Rarity'},
-      {id:9, name: 'Charity Case'},
-      {id:10, name: 'Airforce 1'}
+       new Pony(7, 'Fluttershy'),
+       new Pony(8, 'Rarity'),
+       new Pony(9, 'Charity Case'),
+       new Pony(10, 'Airforce 1')
     ];
 
      birthday: Date = new Date('2015-07-16T15:30:00');

@@ -1,32 +1,33 @@
-import {Component} from 'angular2/core';
-import {Directive} from 'angular2/core';
-import {Input} from 'angular2/core';
+import {Component, Input, Output,EventEmitter} from 'angular2/core';
 import {Pony} from './pony_class';
 
 @Component({
     selector: 'pony-cmp',
-    template: `<div>{{pony.name}}</div>`
+    inputs: ['pony'],
+    outputs: ['emitter:ponySelected'],
+    template: `<div (click)="selectPony()">{{pony.name}}</div>`
   })
+
   export class PonyCmp {
-    @Input() pony: Pony;
+    /**
+     * using @INPUT and @OUTPUT creates un wanted event subscriberss.
+     * Will break or create ERRRORS
+     * when events are loaded in separate directives
+     */
+    //@Input() pony: Pony;
+    //@Output() ponySelected: EventEmitter<Pony> = new EventEmitter<Pony>();
+    pony: Pony;
+    emitter: EventEmitter<Pony> = new EventEmitter<Pony>();
+
+    /**
+     * Selects a pony when the component is clicked.
+     * Emits a custom event.
+     */
+    selectPony() {
+      this.emitter.emit(this.pony);
+     // using @INPUT and @OUTPUT creates un wanted event subscribers caused this.ponySelected to throw errors
+      //this.ponySelected.emit(this.pony);
+    }
   }
 
 
-@Component({
-    selector: 'myponies-cmp',
-    template: `<div>
-                 <h2>Passing Data</h2>
-                  <pony-cmp *ngFor="#currentPony of someponies" [pony]="currentPony"></pony-cmp>
-                 </div>
-                 <hr/>`,
-    directives: [PonyCmp]
-})
-
-  export class MyponiesCmp {
-    someponies: Array<Pony> = [
-      {id: 12, name: 'Fruit Punch'},
-      {id: 13, name: 'Fiascal'},
-      {id: 14, name: 'Bao Bop'},
-      {id: 15, name: 'Turkish Delight'}
-    ];
-}

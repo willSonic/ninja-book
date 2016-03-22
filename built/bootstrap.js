@@ -1,4 +1,3 @@
-"use strict";
 /// <reference path="node_modules/angular2/typings/browser.d.ts"/>
 var http_1 = require('angular2/http');
 var http_2 = require('angular2/http');
