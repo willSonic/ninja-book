@@ -23,7 +23,7 @@ var PonyRacerApp = (function () {
         this._raceService = _raceService;
         this.numberOfUsers = 146;
         this.newRaceAvailable = [];
-        this.flashyMessage = '';
+        this.flashyMessage = 'say-what';
         this.isHidden = false;
         this.devTestData = [];
         this.raceSerLis = [];
@@ -44,7 +44,7 @@ var PonyRacerApp = (function () {
         core_1.Component({
             selector: 'ponyracer-app',
             providers: [core_2.provide(race_service_1.RaceService, { useClass: fakerace_service_1.FakeRaceService })],
-            template: "\n                <h2>PonyRacer</h2>\n                <myponies-cmp></myponies-cmp>\n                <races-cmp [hidden]=\"isHidden\" (newRaceAvailable)=\"onNewRace($event)\">{{flashyMessage}}</races-cmp>\n                <ponies-cmp></ponies-cmp>\n                <h5>{{numberOfUsers}} users</h5>\n                <h5>Welcome {{user.name}}</h5>\n                <h5>artist {{user.type}}</h5>\n                <h5> flashy message = {{flashyMessage}}</h5>\n                <button (click)=\"racerServiceList($event)\">Get Race LIST </button>\n                <p *ngIf=\"raceSerLis.length > 0\">{{devTestData | json}}</p>\n                 <ul *ngIf=\"raceSerLis.length > 0\">\n                     <li *ngFor=\"#race of raceSerLis; #i=index \">{{i}} - {{race.name}} </li>\n                </ul>\n               ",
+            template: "<h1>Pony Testing</h1>\n                <myponies-cmp></myponies-cmp>\n                <races-cmp [hidden]=\"isHidden\" (newRaceAvailable)=\"onNewRace($event)\">{{flashyMessage}}</races-cmp>\n                <ponies-cmp></ponies-cmp>\n                <h5>{{numberOfUsers}} users</h5>\n                <h5>Welcome {{user.name}}</h5>\n                <h5>artist {{user.type}}</h5>\n                <button (click)=\"racerServiceList($event)\">Get Race LIST </button>\n                <p *ngIf=\"raceSerLis.length > 0\">{{devTestData | json}}</p>\n                 <ul *ngIf=\"raceSerLis.length > 0\">\n                     <li *ngFor=\"#race of raceSerLis; #i=index \">{{i}} - {{race.name}} </li>\n                </ul>\n               ",
             // declare all the components you use in your template
             directives: [races_cmp_1.RacesCmp, ponies_cmp_1.PoniesCmp, myponies_cmp_1.MyponiesCmp]
         }), 

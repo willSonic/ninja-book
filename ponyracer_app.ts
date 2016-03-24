@@ -11,15 +11,13 @@ import {MyponiesCmp}   from './myponies_cmp';
 @Component({
     selector: 'ponyracer-app',
     providers: [provide(RaceService, {useClass: FakeRaceService})],
-    template:  `
-                <h2>PonyRacer</h2>
+    template:  `<h1>Pony Testing</h1>
                 <myponies-cmp></myponies-cmp>
                 <races-cmp [hidden]="isHidden" (newRaceAvailable)="onNewRace($event)">{{flashyMessage}}</races-cmp>
                 <ponies-cmp></ponies-cmp>
                 <h5>{{numberOfUsers}} users</h5>
                 <h5>Welcome {{user.name}}</h5>
                 <h5>artist {{user.type}}</h5>
-                <h5> flashy message = {{flashyMessage}}</h5>
                 <button (click)="racerServiceList($event)">Get Race LIST </button>
                 <p *ngIf="raceSerLis.length > 0">{{devTestData | json}}</p>
                  <ul *ngIf="raceSerLis.length > 0">
@@ -39,7 +37,7 @@ export class PonyRacerApp {
 
     newRaceAvailable: any =[];
 
-    flashyMessage: string = '';
+    flashyMessage: string = 'say-what';
 
     isHidden: boolean = false;
 
