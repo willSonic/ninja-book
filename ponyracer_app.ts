@@ -7,6 +7,8 @@ import {RacesCmp}      from './races_cmp';
 import {PoniesCmp}     from './ponies_cmp';
 import {PonyCmp}   from './pony_cmp';
 import {MyponiesCmp}   from './myponies_cmp';
+import {Switchy}   from './ngOnChanges_Switchy_cmp';
+import {Pony} from './pony_class';
 
 @Component({
     selector: 'ponyracer-app',
@@ -14,7 +16,7 @@ import {MyponiesCmp}   from './myponies_cmp';
     template:  `<h1>Pony Testing</h1>
                 <myponies-cmp></myponies-cmp>
                 <races-cmp [hidden]="isHidden" (newRaceAvailable)="onNewRace($event)">{{flashyMessage}}</races-cmp>
-                <ponies-cmp></ponies-cmp>
+                <ponies-cmp ></ponies-cmp>
                 <h5>{{numberOfUsers}} users</h5>
                 <h5>Welcome {{user.name}}</h5>
                 <h5>artist {{user.type}}</h5>
@@ -29,7 +31,11 @@ import {MyponiesCmp}   from './myponies_cmp';
   })
 
 export class PonyRacerApp {
-
+    ponies: Array<Pony> = [
+      new Pony(31, 'Shoots & Latters'),
+      new Pony(32, 'Black Jack'),
+      new Pony(33, 'Simon Says')
+    ];
     // add a constructor with RaceService
     constructor(private _raceService: RaceService) {}
 

@@ -5,7 +5,7 @@ import {Pony} from './pony_class';
     selector: 'pony-cmp',
     inputs: ['pony'],
     outputs: ['emitter:ponySelected'],
-    template: `<div (click)="selectPony()">{{pony.name}}</div>`
+    template: `<div><button  (click)="selectPony()">{{pony.name}}</button></div>`
   })
 
   export class PonyCmp {

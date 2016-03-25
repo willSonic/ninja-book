@@ -1,6 +1,7 @@
-import {Component, PLATFORM_PIPES, provide, Directive} from 'angular2/core';
+import {Component, PLATFORM_PIPES, Input, provide, Directive} from 'angular2/core';
 import {FromNowPipe} from './custompipes/fromnow_pipe';
 import {Pony} from './pony_class';
+import {Switchy}   from './ngOnChanges_Switchy_cmp';
 
 
   @Component({
@@ -8,6 +9,12 @@ import {Pony} from './pony_class';
     inputs: ['pony'],
     providers: [provide(PLATFORM_PIPES, {useValue: FromNowPipe, multi: true})],
     template:  `<hr/>
+                <h4> TicklePonies</h4>
+                <ul>
+                  <li *ngFor="#tickler of tickleponies;"  changeDirective [tickleponies]="tickleponies">
+                        {{tickler.name}}
+                  </li>
+                </ul>
                 <h4> Show Pony Array with Pipe using Slices</h4>
                 <p>pony of ponies | slice:0:size </p>
                 <div *ngFor="#pony of ponies | slice:0:size">{{pony.name}}</div>
@@ -29,11 +36,16 @@ import {Pony} from './pony_class';
                         {{pony.name}}
                   </li>
                 </ul>`,
-    pipes: [FromNowPipe]
+    pipes: [FromNowPipe],
+    directives:[Switchy]
   })
   export class PoniesCmp {
 
-    ponies: Array<Pony> = [
+    @Input() tickleponies: Array<Pony>;
+
+    setUp:boolean = false;
+
+    somePonies: Array<Pony> = [
       new Pony(1, 'Sweet Potatoe'),
       new Pony(2, 'Candy Cane'),
       new Pony(3, 'Rainbow Dash'),
@@ -48,9 +60,19 @@ import {Pony} from './pony_class';
        new Pony(10, 'Airforce 1')
     ];
 
+
+     ponies: Array<Pony> =  this.somePonies;
      birthday: Date = new Date('2015-07-16T15:30:00');
 
      refreshPonies() {
-         this.ponies = this.morePonies;
+         if(this.setUp){
+           this.setUp  = false;
+           this.ponies = this.somePonies;
+         }else{
+           this.setUp  = true;
+           this.ponies = this.morePonies;
+         }
+         this.tickleponies = this.ponies;
      }
+
 }

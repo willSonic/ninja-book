@@ -11,6 +11,6 @@ import {Pony} from './pony_class';
     @Input() pony: Pony;
 
     ngOnInit() {
-      console.log(`inputs are ${this.pony.name}`);
+      console.log(`[Flashy]--ngOnInit-- inputs are ${this.pony.name}`);
     }
   }

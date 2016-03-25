@@ -1,12 +1,15 @@
-export class Pony{
-  constructor(id, name) {
-      this.id = id;
-      this.name = name;
+export class Pony {
+  private _id :string;
+  private _name :string;
+
+  constructor(_id, _name) {
+      this._id = _id;
+      this._name = _name;
     }
-    get id(){
+    get id() :string{
         return this._id;
     }
-    get name(){
+    get name()  :string{
         return this._name;
     }
     set id(id){
